@@ -29,8 +29,6 @@ Route::get('/categories', function () {
     return Inertia::render('Category', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
 
