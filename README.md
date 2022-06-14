@@ -12,6 +12,7 @@
 ## Prerequisites
 
 - Dockerd is installed
+- php 8.1
 
 ## Installation
 
@@ -24,14 +25,22 @@ cp .env_example .env
 vi .env
 ```
 
-2. Run servers.
+2. Install
 
 ```bash
+composer install --ignore-platform-reqs
+npm install
+npm run dev
 alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+```
+
+3. Run servers.
+
+```bash
 sudo sail up
 ```
 
-3. DB migration
+4. DB migration
 
 Import sample.sql into your DB with your favorite mysql client tools.
 
@@ -41,7 +50,9 @@ Then, migrate to apply for foreign keys on appropriate tables.
 sudo sail artisan migrate
 ```
 
-4. You can connect to the server `http://localhost`
+5. Connect to server
+
+You can connect to the server `http://localhost`
 
 ```
 http://localhost/api/categories
