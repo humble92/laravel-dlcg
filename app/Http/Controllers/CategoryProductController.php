@@ -16,7 +16,12 @@ class CategoryProductController extends Controller
      */
     public function index()
     {
-        return response()->json(new CategoryProductCollection(CategoryProduct::where('active', '=', 1)->get()), Response::HTTP_OK);
+        return response()->json(
+            new CategoryProductCollection(
+                CategoryProduct::with('product')->where('active', '=', 1)->get()
+            ), 
+            Response::HTTP_OK
+        );
     }
 
     /**

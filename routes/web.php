@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ShopManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +26,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/categories', function () {
-    return Inertia::render('Category', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
-});
+Route::Resource('/sm', ShopManagementController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
