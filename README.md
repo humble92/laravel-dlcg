@@ -55,6 +55,7 @@ sudo sail artisan migrate
 You can connect to the server `http://localhost`
 
 ```
+http://localhost/management
 http://localhost/api/categories
 http://localhost/api/products
 ```
