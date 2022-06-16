@@ -21959,7 +21959,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
+  },
   props: {
     href: {
       type: String,
@@ -22630,19 +22635,27 @@ var __default__ = {
     ListItem: _Components_ListItem_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      currentActiveCategory: null
+    };
   },
-  methods: {
-    log: function log() {
-      console.log(this.categories.data);
-    }
-  }
+  created: function created() {
+    var _this = this;
+
+    this.currentActiveCategory = parseInt(window.location.href.split("/").pop());
+    this.categories.data.forEach(function (e) {
+      var _ref;
+
+      e['isActive'] = (_ref = e['id'] === _this.currentActiveCategory) !== null && _ref !== void 0 ? _ref : false;
+    });
+  },
+  methods: {}
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/Object.assign(__default__, {
   __name: 'ShopManagement',
-  setup: function setup(__props, _ref) {
-    var expose = _ref.expose;
+  setup: function setup(__props, _ref2) {
+    var expose = _ref2.expose;
     expose();
     var __returned__ = {
       Nav: _Components_Nav_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -23041,14 +23054,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: $props.href,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['block px-3 py-2 rounded-md', $props.isActive ? 'bg-sky-500 text-white' : 'bg-slate-50'])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")], 10
-  /* CLASS, PROPS */
-  , _hoisted_1)]);
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")];
+    }),
+    _: 3
+    /* FORWARDED */
+
+  }, 8
+  /* PROPS */
+  , ["href", "class"])]);
 }
 
 /***/ }),
@@ -24161,7 +24182,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.categories.data, function (category) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["NavItem"], {
           key: category.id,
-          href: '/sm/' + category.id
+          href: _ctx.route('management.show', {
+            'id': category.id
+          }),
+          isActive: category.isActive
         }, {
           "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
             return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 1
@@ -24173,7 +24197,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
         }, 1032
         /* PROPS, DYNAMIC_SLOTS */
-        , ["href"]);
+        , ["href", "isActive"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))];

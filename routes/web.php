@@ -26,7 +26,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::Resource('/sm', ShopManagementController::class);
+Route::Resource('/management', ShopManagementController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

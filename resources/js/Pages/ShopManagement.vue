@@ -16,7 +16,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 
     <div class="w-auto mx-auto sm:px-6 lg:px-8">
         <Nav>
-            <NavItem v-for="category in categories.data" :key="category.id" :href="'/sm/' + category.id">{{ category.name }}</NavItem>
+            <NavItem v-for="category in categories.data" :key="category.id" :href="route('management.show', {'id': category.id})" :isActive="category.isActive">{{ category.name }}</NavItem>
         </Nav>
     </div>
 
@@ -46,7 +46,7 @@ import { Head } from '@inertiajs/inertia-vue3';
     import NavItem from '../Components/NavItem.vue'
     import List from '../Components/List.vue'
     import ListItem from '../Components/ListItem.vue'
-    
+
     export default {
         props: ['categories', 'products'],
         components: {
@@ -54,16 +54,19 @@ import { Head } from '@inertiajs/inertia-vue3';
             NavItem,
             List,
             ListItem,
-        },        
+        },
         data() {
             return {
-                
+                currentActiveCategory: null,
             }
         },
+        created() {
+            this.currentActiveCategory = parseInt(window.location.href.split("/").pop());
+            this.categories.data.forEach(e => {
+                e['isActive'] = (e['id'] === this.currentActiveCategory) ?? false;
+            });
+        },
         methods: {
-            log() {
-                console.log(this.categories.data);
-            }
         }
     }
 </script>
